@@ -1,0 +1,43 @@
+<div style="text-align:center">
+  <h1>
+    Ngx-Webcam Demo
+  </h1>
+
+  <div>
+    <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="mostrarWebcam"
+            
+            [switchCamera]="nextWebcamObservable"
+            
+            [imageQuality]="1"
+            (cameraSwitched)="cameraSwitched($event)"
+            (initError)="handleInitError($event)"
+    ></webcam>
+    <br/>
+    <button  class="btn btn-primary m-5" (click)="triggerCaptura();">Take A Snapshot</button>
+    <button  class="btn btn-primary m-5" (click)="toggleWebcam();">Toggle Webcam</button>
+    <br/>
+    <button  class="btn btn-primary m-5" (click)="showNextWebcam(true);" [disabled]="!multiplesCamarasDisponibles">Next Webcam</button>
+    <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="permitirCambioCamara"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
+    <br/>
+    dispositivoId: <input id="dispositivoId" type="text" [(ngModel)]="dispositivoId" style="width: 500px">
+    <button (click)="showNextWebcam(dispositivoId);"  class="btn btn-primary m-5">Activate</button>
+  </div>
+</div>
+
+<div class="snapshot" *ngIf="imagenWebcam">
+  <h2>Nice one!</h2>
+  <img [src]="imagenWebcam.imageAsDataUrl"/>
+</div>
+
+<h4 *ngIf="errors.length > 0">Messages:</h4>
+<ul *ngFor="let error of errors">
+  <li>{{error | json}}</li>
+</ul>
+
+<h2>Like this project on GitHub:</h2>
+<ul class="links">
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://github.com/basst314/ngx-webcam">Ngx-Webcam / GitHub</a></h2>
+  </li>
+</ul>
+
